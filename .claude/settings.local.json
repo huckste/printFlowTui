@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dotnet add:*)",
+      "Bash(dotnet build:*)",
+      "WebSearch",
+      "WebFetch(domain:gui-cs.github.io)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(gpg:*)",
+      "WebFetch(domain:archlinux.org)",
+      "Bash(curl:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
