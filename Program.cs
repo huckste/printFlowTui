@@ -1,25 +1,9 @@
+using printFlowTui;
 using Terminal.Gui.App;
-using Terminal.Gui.FileServices;
 using Terminal.Gui.Views;
-using Terminal.Gui.ViewBase;
-using Terminal.Gui.Input;
-using System.Reflection.Metadata;
-using Terminal.Gui.Drawing;
-using System.Diagnostics.Tracing;
-using System.Collections.ObjectModel;
 
-IApplication app = Application.Create().Init();
-
-Window window = new();
-
-var printFiles = new Shortcut(
-    key: Key.F,
-    commandText: "printFiles",
-    action: () => { app.RequestStop(); }
-    );
-
-
-
+using IApplication app = Application.Create().Init();
+var window = new Window();
+window.Add(new App());
 app.Run(window);
-app.Dispose();
-
+window.Dispose();

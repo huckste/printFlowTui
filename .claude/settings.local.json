@@ -9,7 +9,19 @@
       "WebFetch(domain:raw.githubusercontent.com)",
       "Bash(gpg:*)",
       "WebFetch(domain:archlinux.org)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(dotnet --version:*)",
+      "Bash(fc-list:*)",
+      "Bash(ghostty +show-config:*)",
+      "mcp__ide__getDiagnostics",
+      "Bash(dotnet format:*)",
+      "Bash(dotnet tool list:*)",
+      "Bash(dotnet csharpier:*)",
+      "Bash(ps:*)",
+      "Bash(hyprctl clients:*)",
+      "Bash(cat:*)",
+      "Bash(hyprctl monitors:*)",
+      "Bash(jq:*)"
     ],
     "deny": [],
     "ask": []
