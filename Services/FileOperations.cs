@@ -16,7 +16,7 @@ public class FetchFiles
             list.Add(
                 new FileToPrint
                 {
-                    FileName = file.Split('/')[^1],
+                    FileName = Path.GetFileName(file),
                     Path = file,
                     ID = fileID,
                     LabelCount = await LabelCountAysnc(file),

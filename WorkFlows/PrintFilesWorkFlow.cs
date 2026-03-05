@@ -66,6 +66,9 @@ public class PrintFilesWorkFlow : View
 
         _printerPath = "//home/huckste/TestFolder/Printers/";
 
+        if (Path.Exists("//ind-as11a/barprn/cops"))
+            _printerPath = "//ind-as11a/barprn/cops";
+
         _operationsModal = new Dialog
         {
             Title = "File Operation",

@@ -57,7 +57,14 @@ public class FileSelectionView : BaseView
 
         _initalized = true;
         StatusLabel.Text = "Loading Files...";
-        var files = await FetchFiles.LabelData("/home/huckste/TestFolder/Label_Data_Load/");
+
+        List<FileToPrint>? files = [];
+
+        if (Path.Exists("/home/huckste/TestFolder/Label_Data_Load/"))
+            files = await FetchFiles.LabelData("/home/huckste/TestFolder/Label_Data_Load/");
+
+        if (Path.Exists("C:\\Label_Data_Load"))
+            files = await FetchFiles.LabelData("/home/huckste/TestFolder/Label_Data_Load/");
 
         foreach (var file in files)
         {
