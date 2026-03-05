@@ -21,25 +21,46 @@ public class PrinterQueuePanel : View
         Title = printerName;
         X = 0;
         Y = 0;
-        Width = Dim.Percent(50);
+        Width = Dim.Percent(80);
         Height = Dim.Auto();
         BorderStyle = LineStyle.Rounded;
+        CanFocus = true;
+        TabStop = TabBehavior.TabGroup;
 
         QueueList = new ListView
         {
-            X = 0,
-            Y = 0,
             Width = Dim.Fill(),
             Height = Dim.Auto(),
             BorderStyle = LineStyle.None,
+            TabStop = TabBehavior.TabStop,
+            MarkMultiple = true,
+            ShowMarks = true,
+            CanFocus = true,
         };
 
-        LabelCount = new Label { X = 1, Y = Pos.Bottom(QueueList) + 1 };
+        LabelCount = new Label { X = Pos.Center(), Y = Pos.Center() };
+
+        HasFocusChanged += (sender, e) =>
+        {
+            if (e.CurrentValue)
+            {
+                BorderStyle = LineStyle.Double;
+                Remove(LabelCount);
+                Add(QueueList);
+            }
+            else
+            {
+                BorderStyle = LineStyle.Rounded;
+                Add(LabelCount);
+                Remove(QueueList);
+            }
+        };
 
         QueueList.SetSource(Queue);
 
-        Add(QueueList, LabelCount);
+        Add(LabelCount);
     }
 
-    public void UpdateLabelCount(int count) => LabelCount.Text = $"LabelCount: {count}";
+    public void UpdateLabelCount() =>
+        LabelCount.Text = $"{Queue.Count} Files | {Queue.Sum(f => f.LabelCount)} Labels";
 }

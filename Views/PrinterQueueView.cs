@@ -3,6 +3,7 @@ namespace printFlowTui.Views;
 using System.Collections.ObjectModel;
 using printFlowTui.Models;
 using printFlowTui.Services;
+using Terminal.Gui.Drawing;
 using Terminal.Gui.ViewBase;
 using Terminal.Gui.Views;
 
@@ -15,9 +16,12 @@ public class PrinterQueueView : BaseView
     {
         Title = "Printer Queue";
         X = 0;
-        Y = 0;
+        Y = Pos.Center();
         Width = Dim.Fill();
-        Height = Dim.Auto();
+        Height = Dim.Percent(90);
+        CanFocus = true;
+        BorderStyle = LineStyle.Double;
+        TabStop = TabBehavior.TabGroup;
 
         QueueStatus = new Label
         {
@@ -51,6 +55,6 @@ public class PrinterQueueView : BaseView
             panel.Queue.Add(file);
         }
 
-        panel.UpdateLabelCount(panel.Queue.Sum(f => f.LabelCount));
+        panel.UpdateLabelCount();
     }
 }

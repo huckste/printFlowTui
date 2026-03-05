@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using printFlowTui.Models;
 using printFlowTui.Services;
+using Terminal.Gui.Drawing;
 using Terminal.Gui.ViewBase;
 using Terminal.Gui.Views;
 
@@ -18,9 +19,12 @@ public class FileSelectionView : BaseView
     public FileSelectionView()
     {
         Title = "File Selection";
-        Width = Dim.Auto(minimumContentDim: 25);
-        Height = Dim.Auto();
+        Width = Dim.Auto(minimumContentDim: 30);
+        Height = Dim.Percent(90);
         CanFocus = true;
+        TabStop = TabBehavior.TabGroup;
+        BorderStyle = LineStyle.Double;
+        Y = Pos.Center();
 
         FileList = new ListView
         {
@@ -32,7 +36,7 @@ public class FileSelectionView : BaseView
             ShowMarks = true,
         };
 
-        StatusLabel = new Label { X = 1, Y = Pos.Bottom(FileList) + 1 };
+        StatusLabel = new Label { X = Pos.Center(), Y = Pos.AnchorEnd() };
 
         AvailableFiles = [];
         FileList.SetSource(AvailableFiles);
@@ -64,7 +68,8 @@ public class FileSelectionView : BaseView
     }
 
     public void UpdateStatus() =>
-        StatusLabel.Text = $"Found {AvailableFiles.Sum(f => f.LabelCount)} Files";
+        StatusLabel.Text =
+            $"{AvailableFiles.Count} Files | {AvailableFiles.Sum(f => f.LabelCount)} Labels ";
 
     public class FilesSelectedEventArgs(IEnumerable<int> markedIndices) : EventArgs
     {

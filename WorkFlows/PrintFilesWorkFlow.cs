@@ -25,16 +25,44 @@ public class PrintFilesWorkFlow : View
     private readonly List<Printer> _printers = [];
     private IEnumerable<int>? _markedIndices;
 
+    // === Buttons ===
+    private readonly Button _exitWorkflow;
+    private readonly Button _operationBtn;
+    private readonly Button _startPrintJob;
+
     public PrintFilesWorkFlow()
     {
-        Width = Dim.Percent(90);
+        Width = Dim.Percent(70);
         Height = Dim.Percent(90);
         X = Pos.Center();
         Y = Pos.Center();
         CanFocus = true;
 
+        _exitWorkflow = new Button
+        {
+            X = 0,
+            Y = Pos.AnchorEnd(),
+            Text = "Quit View",
+            TabStop = TabBehavior.NoStop,
+        };
+
         _fileSelectionView = new FileSelectionView { };
-        _printerQueueView = new PrinterQueueView { X = Pos.Right(_fileSelectionView) };
+        _printerQueueView = new PrinterQueueView { X = Pos.Right(_fileSelectionView) + 5 };
+        _operationBtn = new Button
+        {
+            Y = Pos.AnchorEnd(),
+            X = Pos.Func((view) => _printerQueueView.Frame.Right - _operationBtn!.Frame.Width),
+            Text = "Operations",
+            TabStop = TabBehavior.NoStop,
+        };
+
+        _startPrintJob = new Button
+        {
+            X = Pos.Func((view) => _fileSelectionView.Frame.Right - _startPrintJob!.Frame.Width),
+            Y = Pos.AnchorEnd(),
+            Text = "Send Files",
+            TabStop = TabBehavior.NoStop,
+        };
 
         _printerPath = "//home/huckste/TestFolder/Printers/";
 
@@ -60,7 +88,7 @@ public class PrintFilesWorkFlow : View
         _operationSelector.Accepting += OnOperationSelected;
         _printerSelector.Accepting += OnPrinterSelected;
 
-        Add(_fileSelectionView, _printerQueueView);
+        Add(_fileSelectionView, _printerQueueView, _startPrintJob, _exitWorkflow, _operationBtn);
     }
 
     // === Initialization ===
